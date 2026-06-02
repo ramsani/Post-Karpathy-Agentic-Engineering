@@ -56,11 +56,19 @@ Do not say “done”, “works”, “fixed”, or “implemented” without ev
 
 `not_verified` does not replace verification. Use it only when a check does not exist, is not possible, is not useful for the change, or is blocked by a concrete reason.
 
-## Mandatory checkpoint
+## Checkpoint: proportional, not bureaucratic
 
-At close, fill `TEMPLATE-checkpoint-agentic.yaml`.
+Fill `TEMPLATE-checkpoint-agentic.yaml` only when the task involved at least one of these:
 
-If `TEMPLATE-checkpoint-agentic.yaml` does not exist in the repo, create it with this content:
+- editing repo files
+- running build, test, typecheck, lint, smoke, or equivalent checks
+- touching sensitive surfaces such as auth, data, production, secrets, payments, external contracts, permissions, or commercial commitments
+
+For pure analysis, judgment, research, strategy, or chat, omit the checkpoint.
+
+Rule: if there was no verifiable change, there is no checkpoint to close.
+
+If `TEMPLATE-checkpoint-agentic.yaml` is required but does not exist in the repo, create it with this content:
 
 ```yaml
 # AGENTIC CHECKPOINT
