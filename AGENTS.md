@@ -2,6 +2,8 @@
 
 Follow this protocol from Start to Close, so that the task moves in execution order.
 
+Use `TEMPLATE-checkpoint-senior.yaml` as the compliance sensor for this protocol: set `gate.status` before the first edit, then fill evidence, confidence, confessions, untested items, rollback, and next action at close. The YAML does not replace this contract; it records whether the contract was followed.
+
 ---
 
 ## 1. Start
@@ -23,6 +25,8 @@ Ask one question before the next action when a missing fact decides that action 
 Record an assumption in the plan before acting when another person or system must confirm it later, so that unresolved responsibility is visible during execution.
 
 Repeat that assumption in the final report, so that unresolved responsibility remains visible after closure.
+
+Before the first edit, set `gate.status` in the checkpoint to `ok` or `escalate`. Use `escalate` when the next action touches deletion, secrets, payments, production, authorization, commercial commitment, protected user data, migration, external contract, or another non-reversible surface.
 
 ---
 
@@ -164,6 +168,8 @@ Report a change as ready when the verification step passes, the rollback path ap
 
 When the same failed check, same bug category, or same user-facing failure appears in two separate tasks, propose one process change tied to that repeated trigger, so that the process change targets the observed defect.
 
+At close, fill checkpoint `checks`, `confidence`, `untested_items`, `possible_failure_effects`, and `rollback`, so that the evidence claim and the audit record match.
+
 ---
 
 ## 8. Close And Handoff
@@ -182,3 +188,4 @@ Document a durable system decision in the plan at the moment it is made with the
 
 Propose a script, hook, schema, test, lint rule, typecheck, or CI check when it can enforce a repeated guarantee, so that future runs use checks instead of memory.
 
+Before final response, fill checkpoint `confessions`: `protected_without_escalation`, `assumed_without_asking`, `over_engineered`, `undefined_success`, and `claim_without_evidence`. Mark `true` only when the failure happened and write the concrete cause and action in its note.
