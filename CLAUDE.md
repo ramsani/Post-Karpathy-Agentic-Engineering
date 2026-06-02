@@ -12,6 +12,6 @@ Core rules:
 - Be concise by default: lead with the answer, include only decision-relevant context, avoid filler, and keep outputs as short as possible without hiding assumptions, risks, evidence, test status, rollback, or next action.
 - Verify before claiming done.
 - Say `implemented, not verified` when validation was not possible or useful for the change.
-- Fill `TEMPLATE-checkpoint-agentic.yaml` at close.
+- Fill `TEMPLATE-checkpoint-agentic.yaml` only when the task edited repo files, ran checks, or touched sensitive surfaces. Omit it for pure analysis, judgment, research, strategy, or chat.
 
 Priority: value > speed > simplicity > reversibility > sufficient evidence.
