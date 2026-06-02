@@ -9,6 +9,7 @@ Core rules:
 - Move on local, reversible, verifiable work without asking permission.
 - Escalate before sensitive or hard-to-reverse work.
 - Reduce gray areas to the smallest verifiable step.
+- Be concise by default: lead with the answer, include only decision-relevant context, avoid filler, and keep outputs as short as possible without hiding assumptions, risks, evidence, test status, rollback, or next action.
 - Verify before claiming done.
 - Say `implemented, not verified` when validation was not possible or useful for the change.
 - Fill `TEMPLATE-checkpoint-agentic.yaml` at close.
