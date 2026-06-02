@@ -1,6 +1,6 @@
 # Design Notes
 
-This repository is a behavioral contract for coding agents.
+This repository is a behavioral contract and checkpoint system for coding agents.
 
 The goal is not to make a model smarter. The goal is to reduce the chance that a capable model chooses the wrong behavior at the moment a task becomes ambiguous, risky, broad, or unverifiable.
 
@@ -21,6 +21,8 @@ Read relevant files before editing.
 Ask one question when a missing fact decides the next action.
 Start with the smallest reversible change.
 Run verification before claiming completion.
+Escalate before protected or irreversible changes.
+Record untested items, rollback, and next action at close.
 ```
 
 A behavior can be followed directly. A role must be interpreted first.
@@ -52,25 +54,48 @@ The order matters because each section constrains the next decision.
 
 ---
 
+## Why there is a checkpoint
+
+Instruction files can still fail silently. An agent can skip a rule, overstate confidence, or hide an assumption unless the closeout format forces the failure into view.
+
+`TEMPLATE-checkpoint-senior.yaml` is the sensor for that problem. It records:
+
+- the pre-edit gate: `ok` or `escalate`
+- success criteria and scope
+- assumptions and touched files
+- checks and confidence
+- untested items and possible failure effects
+- rollback and next action
+- five process confessions:
+  - protected surface changed without escalation
+  - assumption made without asking
+  - over-engineering
+  - undefined success criteria
+  - claim without evidence
+
+The checkpoint is intentionally not a second rulebook. It is a small audit record that makes the agent confess whether the contract was followed.
+
+---
+
 ## Comparison with adjacent work
 
 This repository is intentionally positioned near the major reference points in coding-agent instruction design:
 
 - Andrej Karpathy's critique of coding agents that assume, overbuild, and edit unrelated code
-- Forrest Chang's Karpathy-inspired Claude Code guidelines and `andrej-karpathy-skills` repository
+- Karpathy-inspired Claude Code guideline repositories, including `multica-ai/andrej-karpathy-skills`
 - Matt Pocock's AI coding skills and reusable instruction patterns
 - Anthropic Cookbook examples and Claude repository guidance
 - `AGENTS.md`, `CLAUDE.md`, Cursor rules, and Codex instruction files
 
-Those projects and patterns show that small instruction files can change coding-agent behavior. This contract optimizes for a different shape: portable agent behavior across the full coding-task lifecycle. It covers handoff, protected systems, external input, UX states, verification evidence, and task closure without becoming a framework or skill catalog.
+Those projects and patterns show that small instruction files can change coding-agent behavior. This repository optimizes for a different shape: portable agent behavior across the full coding-task lifecycle, plus a checkpoint that records evidence, confidence, escalation, rollback, and process failures.
 
 ---
 
-## Why there is one edition
+## Why there is one contract and one checkpoint
 
-A second variant creates another source of truth. Once two contracts exist, they can drift in wording, coverage, and behavior.
+A second contract variant creates another source of truth. Once two contracts exist, they can drift in wording, coverage, and behavior.
 
-This repository keeps one canonical `AGENTS.md` and one equivalent `CLAUDE.md` so the contract remains easy to inspect and hard to misapply.
+This repository keeps one canonical `AGENTS.md` and one equivalent `CLAUDE.md`. The YAML is not a variant of the contract; it is the audit template that accompanies the contract.
 
 ---
 
@@ -84,4 +109,4 @@ It is not a framework.
 
 It is not a catalog of skills.
 
-It is a compact protocol for safer, narrower, more verifiable coding-agent work.
+It is a compact protocol and checkpoint for safer, narrower, more verifiable coding-agent work.
