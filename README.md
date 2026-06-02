@@ -10,7 +10,7 @@ A recovery-first operating model for modern AI coding agents: Claude Code, Codex
 
 This repository is a copy-paste operating policy for AI coding agents.
 
-It gives agents freedom to move fast on reversible work, while requiring sensitive or irreversible work to stop for human direction and requiring every closeout to show evidence.
+It gives agents freedom to move fast on reversible work, while requiring sensitive or irreversible work to stop for human direction and requiring evidence when the task produced a verifiable change.
 
 It is not a prompt pack, wrapper, benchmark, sandbox, or framework.
 
@@ -18,7 +18,7 @@ It is a small set of files that changes the default operating behavior of coding
 
 - `AGENTS.md` — vendor-neutral rules for coding agents
 - `CLAUDE.md` — equivalent rules for Claude Code
-- `TEMPLATE-checkpoint-agentic.yaml` — minimal evidence checkpoint for task closeout
+- `TEMPLATE-checkpoint-agentic.yaml` — minimal evidence checkpoint for verifiable task closeout
 
 ## The core difference
 
@@ -37,7 +37,7 @@ This project takes a third path:
 
 **Evidence is not a permission tax before every action.**
 
-**Evidence is the condition for closing the task.**
+**Evidence is the condition for closing verifiable work.**
 
 ## The thesis
 
@@ -106,14 +106,23 @@ Expected behavior:
 - checks are run before claiming success
 - missing verification is reported, not hidden
 - rollback is always named
+- pure analysis, judgment, research, strategy, or chat does not create checkpoint bureaucracy
 
-## Minimal closeout checkpoint
+## Proportional closeout checkpoint
 
-The checkpoint is intentionally small.
+The checkpoint is intentionally small and proportional.
 
 It is not paperwork.
 
-It is a pressure valve against fake confidence.
+It is a pressure valve against fake confidence when there was something verifiable to close.
+
+Fill it only when the task involved at least one of these:
+
+- editing repo files
+- running build, test, typecheck, lint, smoke, or equivalent checks
+- touching sensitive surfaces such as auth, data, production, secrets, payments, external contracts, permissions, or commercial commitments
+
+If there was no verifiable change, there is no checkpoint to close.
 
 ```yaml
 task: "<short id>"
