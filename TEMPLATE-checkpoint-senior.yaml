@@ -1,0 +1,48 @@
+# Senior Agent Checkpoint
+# Compliance sensor for AGENTS.md / CLAUDE.md.
+# Fill `gate` before the first edit. Fill the rest at task close.
+# This file is not a plan; it is an audit record.
+
+task: ""
+date: "" # YYYY-MM-DD
+instruction_file: "AGENTS.md"
+
+gate:
+  status: "" # ok | escalate
+  reason: ""
+
+success_criteria: ""
+scope: ""
+assumptions: []
+
+touched_files: []
+
+checks:
+  - method: "" # command, test, lint, build, typecheck, smoke, manual, diff review
+    result: ""
+    status: "" # proven | untested | assumed | risky
+
+confidence: "" # high | medium | low
+
+confessions:
+  protected_without_escalation:
+    value: false
+    note: ""
+  assumed_without_asking:
+    value: false
+    note: ""
+  over_engineered:
+    value: false
+    note: ""
+  undefined_success:
+    value: false
+    note: ""
+  claim_without_evidence:
+    value: false
+    note: ""
+
+untested_items: []
+possible_failure_effects: []
+
+rollback: ""
+next_action: "none"
