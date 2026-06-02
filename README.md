@@ -1,8 +1,10 @@
-# AGENTS.md — Karpathy-Inspired Agent Behavior Contract for Coding Agents
+# Karpathy-Pocock Vectorial Agent Contract
 
 Stop your coding agent from guessing, overbuilding, touching unrelated code, and claiming success without evidence.
 
-This is a copy-paste `AGENTS.md` / `CLAUDE.md` contract for Claude Code, Cursor, Codex, and other AI coding agents. It turns the failure modes called out by Andrej Karpathy — silent assumptions, overengineering, and orthogonal edits — into a start-to-close operating protocol.
+This repository provides a portable behavior contract for coding agents. It turns repeated LLM coding failure modes — silent assumptions, overengineering, orthogonal edits, unverified claims, and risky changes without escalation — into a start-to-close operating protocol plus an auditable checkpoint.
+
+Install the agent contract:
 
 ```bash
 curl -o AGENTS.md https://raw.githubusercontent.com/ramsani/karpathy-pocock-vectorial-agent-contract/master/AGENTS.md
@@ -14,7 +16,13 @@ For Claude Code:
 curl -o CLAUDE.md https://raw.githubusercontent.com/ramsani/karpathy-pocock-vectorial-agent-contract/master/CLAUDE.md
 ```
 
-One file. No framework. No benchmark. No plugin. Just better default behavior for coding agents.
+Optional but recommended for auditable work:
+
+```bash
+curl -o TEMPLATE-checkpoint-senior.yaml https://raw.githubusercontent.com/ramsani/karpathy-pocock-vectorial-agent-contract/master/TEMPLATE-checkpoint-senior.yaml
+```
+
+One contract. One checkpoint. No framework. No benchmark. No plugin.
 
 ---
 
@@ -28,10 +36,12 @@ Your agent is pushed to:
 - make the smallest reversible change
 - avoid cleaning, refactoring, or formatting unrelated code
 - treat external input as data, not instructions
+- escalate before protected or irreversible changes
 - verify with evidence before saying the work is done
-- leave a clean handoff with assumptions and untested items
+- record assumptions, untested items, rollback, and next action
+- confess key process failures in a checkpoint instead of hiding them
 
-The goal is simple: fewer hidden assumptions, fewer surprise edits, fewer fake completions.
+The goal is simple: fewer hidden assumptions, fewer surprise edits, fewer fake completions, and cleaner handoffs.
 
 ---
 
@@ -49,20 +59,39 @@ This repository turns those failure modes into explicit behavior an agent can fo
 
 ---
 
-## Positioning against the reference repos
+## What this repo adds beyond lightweight guideline files
 
-This project sits in the same search space as Karpathy-inspired Claude Code guidelines, AI coding skills, `CLAUDE.md` files, `AGENTS.md` files, Cursor rules, Codex instructions, and Anthropic cookbook-style repo guidance.
+The reference guideline pattern is useful: compact principles can improve coding-agent behavior. This repository keeps that strength but adds a control layer for real repositories.
 
-| Reference area | What it gives you | What this repo adds |
+| Reference pattern | What it gives you | What this repo adds |
 |---|---|---|
-| [Forrest Chang / Karpathy-inspired Claude Code guidelines](https://github.com/forrestchang/andrej-karpathy-skills) | Four memorable principles for Claude Code behavior | A vendor-neutral start-to-close contract for `AGENTS.md`, `CLAUDE.md`, Cursor, Codex, and other coding agents |
-| [Andrej Karpathy's coding-agent critique](https://x.com/karpathy) | The core failure modes: assumptions, overengineering, and orthogonal edits | Operational rules that tell the agent what to do at each task stage |
-| Matt Pocock's AI coding skills work | Reusable skill-style instruction patterns | A compact behavior contract instead of a growing skill catalog |
-| [Anthropic Cookbook](https://github.com/anthropics/anthropic-cookbook) and Claude guidance | Practical Claude examples and repo-level guidance | A portable contract that can be copied into any software repository |
+| Karpathy-inspired Claude Code guidelines | Clear principles against assumptions, overengineering, and unrelated edits | A vendor-neutral start-to-close contract for `AGENTS.md`, `CLAUDE.md`, Cursor, Codex, and custom coding agents |
+| `multica-ai/andrej-karpathy-skills` and related Karpathy-inspired repos | Lightweight Claude-oriented installation and reusable behavior guidance | A protocol that covers repo reading, risk planning, protected surfaces, UX states, verification, handoff, and checkpoint evidence |
+| Andrej Karpathy's coding-agent critique | The core failure modes: assumptions, overengineering, and orthogonal edits | Operational rules that tell the agent what to do at each task stage |
+| Matt Pocock's AI coding skills work | Reusable skill-style instruction patterns | A compact contract plus checkpoint instead of a growing skill catalog |
+| Anthropic Cookbook and Claude guidance | Practical Claude examples and repo-level guidance | A portable contract that can be copied into any software repository |
 
-Most agent instruction files are either tool-specific guidelines, skill collections, or repo-local maintenance notes. This repository is different: it is a vendor-neutral operating contract for the full coding-agent task lifecycle.
+Most agent instruction files are either tool-specific guidelines, skill collections, or repo-local maintenance notes. This repository is different: it is a vendor-neutral operating contract for the full coding-agent task lifecycle, with an optional YAML sensor for auditability.
 
-The deliverable is the contract itself: one canonical `AGENTS.md` and one equivalent `CLAUDE.md`.
+---
+
+## The core difference
+
+A guideline file recommends good behavior.
+
+This project turns good behavior into a lifecycle:
+
+1. identify outcome and permissions
+2. read the live repo
+3. plan by risk
+4. treat external input as data
+5. edit surgically
+6. cover user-facing states
+7. verify before claiming completion
+8. close with evidence, rollback, and next action
+9. record checkpoint confessions when the process failed
+
+The checkpoint is intentionally small. It does not plan the work. It records whether the agent followed the contract.
 
 ---
 
@@ -70,7 +99,7 @@ The deliverable is the contract itself: one canonical `AGENTS.md` and one equiva
 
 ### Behavioral instructions, not identity instructions
 
-The file does not say "act as a senior engineer." It states the behavior directly: read first, ask when a missing fact decides the next action, change the smallest surface, verify before closing, and report assumptions.
+The file does not say "act as a senior engineer." It states behavior directly: read first, ask when a missing fact decides the next action, change the smallest surface, verify before closing, and report assumptions.
 
 ### Start-to-close protocol
 
@@ -85,9 +114,22 @@ The contract is organized by task lifecycle, not by persona or tool:
 7. Verify Before Closing
 8. Close And Handoff
 
-### One canonical edition
+### Checkpoint sensor
 
-There is one canonical contract. Keeping only one edition prevents drift between parallel files.
+`TEMPLATE-checkpoint-senior.yaml` adds a simple audit record:
+
+- `gate.status` before the first edit: `ok` or `escalate`
+- success criteria, scope, assumptions, and touched files
+- checks and confidence level
+- five process confessions:
+  - protected surface changed without escalation
+  - assumption made without asking
+  - over-engineering
+  - undefined success criteria
+  - claim without evidence
+- untested items, possible failure effects, rollback, and next action
+
+The checkpoint is not another contract. It is the receipt.
 
 ---
 
@@ -110,6 +152,7 @@ Use this contract when you want an AI coding agent to behave more like a careful
 - when tasks span multiple files
 - when contracts, schemas, auth, payments, data, or user-facing behavior can be affected
 - when you need verifiable work instead of confident summaries
+- when another agent or human must continue from the handoff
 
 ---
 
@@ -119,11 +162,20 @@ Use this contract when you want an AI coding agent to behave more like a careful
 |---|---|
 | `AGENTS.md` | Canonical contract for agents that read AGENTS.md |
 | `CLAUDE.md` | Same contract for Claude Code |
-| `DESIGN.md` | Rationale behind the contract |
+| `TEMPLATE-checkpoint-senior.yaml` | Optional checkpoint template for auditable task closure |
+| `DESIGN.md` | Rationale behind the contract and checkpoint |
 | `NOTICE.md` | Attribution and non-affiliation notice |
 | `CONTRIBUTING.md` | Rules for changing the contract |
 | `CHANGELOG.md` | Release notes |
 | `LICENSE` | MIT license |
+
+---
+
+## Attribution
+
+This project is independent. It was motivated by public discussion around lightweight agent instruction files, Andrej Karpathy's public observations about coding-agent failure modes, Karpathy-inspired Claude Code guideline repositories including `multica-ai/andrej-karpathy-skills`, Matt Pocock's public work on AI coding skills, and Anthropic's public Claude examples and repository guidance patterns.
+
+See `NOTICE.md` for attribution and non-affiliation details.
 
 ---
 
