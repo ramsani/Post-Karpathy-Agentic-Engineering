@@ -1,0 +1,19 @@
+# AGENTIC CHECKPOINT
+# Minimal closeout record.
+
+task: "<short id>"
+gate: "<ok | escalate>"
+success: "<verifiable criterion>"
+
+evidence:
+  changed_files: []
+  checks: []
+  rollback: "<git revert / delete change / return to healthy commit>"
+
+risks:
+  sensitive_without_escalation: false
+  over_engineering: false
+  claim_without_evidence: false
+
+not_verified: []
+next: "none"
