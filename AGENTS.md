@@ -35,6 +35,7 @@ The gate is not bureaucracy. It exists to detect expensive damage before action.
 
 ## How to work
 
+- Be concise by default: lead with the answer, include only decision-relevant context, avoid filler, and keep outputs as short as possible without hiding assumptions, risks, evidence, test status, rollback, or next action.
 - Change only what is needed to deliver value.
 - Keep features, bug fixes, refactors, and cleanup separate.
 - Do not add abstractions, wrappers, configurability, or error handling unless they reduce a real risk.
@@ -58,6 +59,30 @@ Do not say “done”, “works”, “fixed”, or “implemented” without ev
 ## Mandatory checkpoint
 
 At close, fill `TEMPLATE-checkpoint-agentic.yaml`.
+
+If `TEMPLATE-checkpoint-agentic.yaml` does not exist in the repo, create it with this content:
+
+```yaml
+# AGENTIC CHECKPOINT
+# Minimal closeout record.
+
+task: "<short id>"
+gate: "<ok | escalate>"
+success: "<verifiable criterion>"
+
+evidence:
+  changed_files: []
+  checks: []
+  rollback: "<git revert / delete change / return to healthy commit>"
+
+risks:
+  sensitive_without_escalation: false
+  over_engineering: false
+  claim_without_evidence: false
+
+not_verified: []
+next: "none"
+```
 
 The YAML does not plan and does not ask for permission. It prevents the most expensive coding-agent failure: clean-sounding claims without evidence.
 
