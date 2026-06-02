@@ -1,48 +1,28 @@
-# Senior Agent Checkpoint
-# Compliance sensor for AGENTS.md / CLAUDE.md.
-# Fill `gate` before the first edit. Fill the rest at task close.
-# This file is not a plan; it is an audit record.
+# SENIOR CHECKPOINT
+# Closeout compliance sensor. Maps to AGENTS.md.
+# PRE: fill gate before the first edit.
+# CLOSE: fill the 5 confessions, note, not_verified, and next_action.
 
-task: ""
-date: "" # YYYY-MM-DD
-instruction_file: "AGENTS.md"
+task: "<short descriptive id>"
+date: "<YYYY-MM-DD>"
 
-gate:
-  status: "" # ok | escalate
-  reason: ""
+# PRE: binary. "escalate" stops execution and asks the human before continuing.
+gate: "<ok | escalate>"
 
-success_criteria: ""
-scope: ""
-assumptions: []
+# CLOSE: 5 confessions. If any is true, add one line in `note`.
+violations:
+  protected_without_escalation: false
+  assumed_without_asking:      false
+  over_engineering:            false
+  undefined_success:           false
+  claim_without_evidence:      false
 
-touched_files: []
+# One line if something was violated. Empty if clean.
+# Format: "<what>; <why>; <what I did or what changes>"
+note: ""
 
-checks:
-  - method: "" # command, test, lint, build, typecheck, smoke, manual, diff review
-    result: ""
-    status: "" # proven | untested | assumed | risky
+# What I did not verify. Pure honesty.
+not_verified: []
 
-confidence: "" # high | medium | low
-
-confessions:
-  protected_without_escalation:
-    value: false
-    note: ""
-  assumed_without_asking:
-    value: false
-    note: ""
-  over_engineered:
-    value: false
-    note: ""
-  undefined_success:
-    value: false
-    note: ""
-  claim_without_evidence:
-    value: false
-    note: ""
-
-untested_items: []
-possible_failure_effects: []
-
-rollback: ""
+# "none" if not applicable, or concrete text with trigger.
 next_action: "none"
