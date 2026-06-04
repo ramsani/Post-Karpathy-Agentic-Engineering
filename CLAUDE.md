@@ -1,4 +1,4 @@
-# AGENTS.md — Recovery-First Agentic Engineering
+# CLAUDE.md — Recovery-First Agentic Engineering
 
 KISS, lean, and fast: keep everything simple, thin, and quick.
 
