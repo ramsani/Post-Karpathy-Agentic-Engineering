@@ -89,6 +89,19 @@ Copy the checkpoint:
 curl -o TEMPLATE-checkpoint-agentic.yaml https://raw.githubusercontent.com/ramsani/karpathy-pocock-vectorial-agent-contract/master/TEMPLATE-checkpoint-agentic.yaml
 ```
 
+## Agent compatibility
+
+Use the entrypoint your coding agent supports:
+
+- `AGENTS.md` for vendor-neutral coding agents.
+- `CLAUDE.md` for Claude Code.
+
+Both files are intentionally identical and self-contained.
+
+There is no dependency chain and no hidden source of truth: downloading either file gives the agent the complete Recovery-First operating model.
+
+---
+
 Add them to the root of your repo.
 
 ## What changes after installation
